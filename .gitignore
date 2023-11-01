@@ -1,1 +1,3 @@
 **/build
+!/PZ4/writer/build/_CPack_Packages
+!/PZ4/reader/build/_CPack_Packages

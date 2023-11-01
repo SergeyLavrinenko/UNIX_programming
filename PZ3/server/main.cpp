@@ -192,7 +192,6 @@ int main (int argc, char **argv)
             }
 
             dbus_connection_flush (conn);
-        
             dbus_message_unref (reply);	
                 
         }
