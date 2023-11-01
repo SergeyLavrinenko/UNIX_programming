@@ -85,14 +85,14 @@ void init_internet_checker(DBusError* err, DBusConnection* conn){
 
     if (NULL == conn){
         printf("Error in connection\n");
-        // exit(1);
+        exit(1);
     }
     dbus_bus_add_match(conn, "type='signal',interface='org.freedesktop.NetworkManager'", err);
     dbus_connection_flush(conn);
 
     if (dbus_error_is_set(err)){
         fprintf(stderr, "Match Error (%s)n", err -> message);
-        // exit(1);
+        exit(1);
     }
 }
 
@@ -110,7 +110,7 @@ int main (int argc, char **argv)
         print_dbus_error ("dbus_bus_get");
 
     if (!conn) 
-        // exit (1);
+        exit (1);
 
 
     dbus_error_init(&err);
@@ -136,7 +136,7 @@ int main (int argc, char **argv)
 
     if (ret != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER) {
         fprintf (stderr, "Dbus: not primary owner, ret = %d\n", ret);
-        // exit (1);
+        exit (1);
     }
 
     // Handle request from clients
@@ -178,17 +178,17 @@ int main (int argc, char **argv)
             }
             if ((reply = dbus_message_new_method_return (message)) == NULL) {
                 fprintf (stderr, "Error in dbus_message_new_method_return\n");
-                // exit (1);
+                exit (1);
             }
 
             if (!dbus_message_append_args (reply, DBUS_TYPE_UINT32, &answer)) {
                 fprintf (stderr, "Error in dbus_message_iter_append_basic\n");
-                // exit (1);
+                exit (1);
             }
 
             if (!dbus_connection_send (conn, reply, NULL)) {
                 fprintf (stderr, "Error in dbus_connection_send\n");
-                // exit (1);
+                exit (1);
             }
 
             dbus_connection_flush (conn);
